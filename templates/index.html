@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hate Speech Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="tweet-box">
+            <h1>Post a Tweet</h1>
+            <form method="post" action="/detect">
+                <textarea name="text" id="tweet-input" placeholder="What's happening?" required>{{ original_text if original_text else '' }}</textarea>
+                <button type="submit">Tweet</button>
+            </form>
+        </div>
+        {% if filtered_text %}
+        <div class="result">
+            <!-- This is where the censored 'tweet' will go -->
+            <h2>Filtered Text</h2>
+            <p id="filtered-text">{{ filtered_text }}</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
