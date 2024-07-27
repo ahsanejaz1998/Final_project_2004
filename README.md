@@ -32,5 +32,10 @@
 + Created a Twitter-esque UI to handle our raw text input/output
 + Hard coded a simple chat-filter as a placeholder that censors pre-defined keywords from the user's tweet.
 
+### July, 27. 2024 - Justin
+### Flask App: Censored Word Log, Front-End CSS Polish
++ Added tracking and logging for censored words as they are detected.
++ Added a display section under the filtered tweet that shows what words were censored and their word count.
++ Modified styles.css to give the web page a more twitter-like appearance
 
 ## Data Sources/References: ... 
