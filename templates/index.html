@@ -17,9 +17,18 @@
         </div>
         {% if filtered_text %}
         <div class="result">
-            <!-- This is where the censored 'tweet' will go -->
             <h2>Filtered Text</h2>
             <p id="filtered-text">{{ filtered_text }}</p>
+        </div>
+        {% endif %}
+        {% if censored_words %}
+        <div class="log">
+            <h2>Censored Words Log</h2>
+            <ul>
+                {% for index, (word, position) in enumerate(censored_words, start=1) %}
+                <li>{{ index }} - '{{ word }}' : Word #{{ position }}</li>
+                {% endfor %}
+            </ul>
         </div>
         {% endif %}
     </div>

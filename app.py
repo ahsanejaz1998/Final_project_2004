@@ -18,13 +18,25 @@ def index():
 @app.route('/detect', methods=['POST'])
 def detect():
     text = request.form['text']
-    filtered_text = fake_hate_speech_detection(text)
-    return render_template('index.html', original_text=text, filtered_text=filtered_text)
+    filtered_text, censored_words = fake_hate_speech_detection(text)
+    return render_template('index.html', original_text=text, filtered_text=filtered_text, censored_words=censored_words)
 
 def fake_hate_speech_detection(text):
 
     # HARD CODED EXAMPLE - We need to put our classification model here to actually handle a library of hatespeech words.
-    return text.replace('hate', '****').replace('offensive', '****').replace('racist', '****').replace('threat', '****')
+    censored_words = []
+    words = text.split()
+    for i, word in enumerate(words):
+        if word.lower() in ['hate', 'offensive', 'racist', 'threat']:
+            censored_words.append((word, i + 1))
+            words[i] = '****'
+    filtered_text = ' '.join(words)
+    return filtered_text, censored_words
+
+
+@app.context_processor
+def utility_processor():
+    return dict(enumerate=enumerate)
 
 if __name__ == '__main__':
     app.run(debug=True)
