@@ -32,7 +32,7 @@ jobs:
 
     - name: Run model evaluation
       run: |
-        python evaluate_model.py
+        python evaluate-model.py
 
     - name: Check code quality
       run: |
