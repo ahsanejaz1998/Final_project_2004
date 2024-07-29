@@ -59,7 +59,7 @@ jobs:
 
     - name: Run model performance check
       run: |
-        python evaluate_model.py
+        python evaluate-model.py
       continue-on-error: true
 
     - name: Fail the build on bad model
