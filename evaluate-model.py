@@ -2,8 +2,15 @@ import joblib
 from sklearn.metrics import accuracy_score
 import pandas as pd
 import re
+import nltk
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
+
+# Download stopwords if not already present
+nltk.download('stopwords')
+nltk.download('punkt')
+
+# Load the stopwords
 stop_words = set(stopwords.words('english'))
 
 # Load the model and vectorizer
