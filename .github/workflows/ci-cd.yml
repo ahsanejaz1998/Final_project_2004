@@ -37,7 +37,7 @@ jobs:
     - name: Check code quality
       run: |
         pip install pylint
-        pylint Final_project_2004
+        pylint Hate Speech Recognition
 
   prevent-bad-commit:
     runs-on: ubuntu-latest
