@@ -11,6 +11,7 @@ import re
 import seaborn as sns
 import matplotlib.pyplot as plt
 import nltk
+import joblib
 from sklearn.svm import SVC
 nltk.download('wordnet')
 from matplotlib import style
@@ -226,7 +227,7 @@ x_train, x_test, y_train, y_test = train_test_split(X, Y, test_size=0.2, random_
 
 # In[41]:
 
-'''
+
 print("Size of x_train:", (x_train.shape))
 print("Size of y_train:", (y_train.shape))
 print("Size of x_test: ", (x_test.shape))
@@ -297,8 +298,8 @@ print("Test accuracy: {:.2f}%".format(logreg_acc*100))
 print(confusion_matrix(y_test, y_pred))
 print("\n")
 print(classification_report(y_test, y_pred))
-'''
 
+'''
 # SVM Model
 svm = SVC()
 svm.fit(x_train, y_train)
@@ -312,3 +313,8 @@ cm = confusion_matrix(y_test, svm_predict, labels=svm.classes_)
 disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=svm.classes_)
 disp.plot()
 plt.show()
+
+'''
+# Save the model
+joblib.dump(logreg, 'logreg_model.pkl')
+joblib.dump(vect, 'vectorizer.pkl')

@@ -3,7 +3,7 @@ from sklearn.metrics import accuracy_score
 import pandas as pd
 
 # Load the model
-model = joblib.load('your_model.pkl')
+model = joblib.load('logreg_model.pkl')
 
 # Load test data
 tweet_df = pd.read_csv('test.csv')
