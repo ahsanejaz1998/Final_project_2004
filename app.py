@@ -6,8 +6,15 @@
 # Purpose: Training four different models using the movies sentiment analysis dataset provided"
 
 from flask import Flask, render_template, request
+from transformers import pipeline # We are using transformers for our pre-trained model
 
 app = Flask(__name__)
+
+# Loading a pre-trained hate speech detection model
+hate_speech_detector = pipeline("text-classification", model="unitary/toxic-bert")
+
+# For this we are using the unitary/toxic-bert model from huggingface. Below is the page referencing/hosting this model:
+# Source: https://huggingface.co/unitary/toxic-bert
 
 # Home Page
 @app.route('/')
@@ -18,22 +25,27 @@ def index():
 @app.route('/detect', methods=['POST'])
 def detect():
     text = request.form['text']
-    filtered_text, censored_words = fake_hate_speech_detection(text)
+    filtered_text, censored_words = hate_speech_detection(text)
     return render_template('index.html', original_text=text, filtered_text=filtered_text, censored_words=censored_words)
 
-def fake_hate_speech_detection(text):
-
-    # HARD CODED EXAMPLE - We need to put our classification model here to actually handle a library of hatespeech words.
+def hate_speech_detection(text):
+    # Using the pre-trained model to detect hate speech
+    results = hate_speech_detector(text)
     censored_words = []
     words = text.split()
+
+    # If a word is flagged as toxic, it is censored, and its details (word and position) are logged.
     for i, word in enumerate(words):
-        if word.lower() in ['hate', 'offensive', 'racist', 'threat']:
+        result = hate_speech_detector(word)
+        if any(label['label'] == 'toxic' and label['score'] > 0.5 for label in result):
             censored_words.append((word, i + 1))
             words[i] = '****'
+    
     filtered_text = ' '.join(words)
     return filtered_text, censored_words
 
 
+# make the enumerate function available in the Jinja2 templates
 @app.context_processor
 def utility_processor():
     return dict(enumerate=enumerate)
