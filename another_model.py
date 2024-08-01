@@ -34,13 +34,16 @@ linreg_acc = accuracy_score(Y_test, Y_pred_binary)
 conf_matrix = confusion_matrix(Y_test, Y_pred_binary)
 class_report = classification_report(Y_test, Y_pred_binary)
 
+
 print(f"Accuracy: {linreg_acc}")
 print("Confusion Matrix:")
 print(conf_matrix)
 print("Classification Report:")
 print(class_report)
 
+
 # Display the confusion matrix
 disp = ConfusionMatrixDisplay(confusion_matrix=conf_matrix)
 disp.plot()
 plt.show()
+

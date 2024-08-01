@@ -1,48 +1,44 @@
 import joblib
-from sklearn.metrics import accuracy_score
 import pandas as pd
-import re
-import nltk
-from nltk.tokenize import word_tokenize
-from nltk.corpus import stopwords
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix, ConfusionMatrixDisplay
+from sklearn.model_selection import train_test_split
+from sklearn.feature_extraction.text import TfidfVectorizer
+import matplotlib.pyplot as plt
 
-# Download stopwords if not already present
-nltk.download('stopwords')
-nltk.download('punkt')
-
-# Load the stopwords
-stop_words = set(stopwords.words('english'))
-
-# Load the model and vectorizer
-model = joblib.load('logreg_model.pkl')
-vect = joblib.load('vectorizer.pkl')
-
-# Load test data
+# Load the dataset
 tweet_df = pd.read_csv('train.csv')
-X_test = tweet_df['tweet']
-y_test = tweet_df['label']
 
-# Process the data similarly as in training
-def data_processing(tweet):
-    tweet = tweet.lower()
-    tweet = re.sub(r"https\S+|www\S+http\S+", '', tweet, flags = re.MULTILINE)
-    tweet = re.sub(r'\@w+|\#','', tweet)
-    tweet = re.sub(r'[^\w\s]','',tweet)
-    tweet = re.sub(r'ð','',tweet)
-    tweet_tokens = word_tokenize(tweet)
-    filtered_tweets = [w for w in tweet_tokens if not w in stop_words]
-    return " ".join(filtered_tweets)
+# Split the data into features and target
+X = tweet_df['tweet']
+Y = tweet_df['label']
 
-tweet_df.tweet = tweet_df['tweet'].apply(data_processing)
+# Vectorize the text data
+vect = TfidfVectorizer()
+X_vect = vect.fit_transform(X)
 
-# Transform test data using the loaded vectorizer
-X_test_transformed = vect.transform(X_test)
-predictions = model.predict(X_test_transformed)
+# Split the data into training and test sets
+X_train, X_test, Y_train, Y_test = train_test_split(X_vect, Y, test_size=0.2, random_state=42)
 
-# Evaluate the model
-accuracy = accuracy_score(y_test, predictions)
-print(f"Accuracy: {accuracy:.2f}")
+# Initialize and train a Linear Regression model
+linreg = LinearRegression()
+linreg.fit(X_train, Y_train)
 
-# Save evaluation result
+# Predict using the Linear Regression model
+Y_pred = linreg.predict(X_test)
+
+# Convert continuous predictions to binary (0 or 1)
+Y_pred_binary = [1 if pred >= 0.5 else 0 for pred in Y_pred]
+
+# Evaluate the performance
+linreg_acc = accuracy_score(Y_test, Y_pred_binary)
+conf_matrix = confusion_matrix(Y_test, Y_pred_binary)
+class_report = classification_report(Y_test, Y_pred_binary)
+
+
+print(f"Accuracy: {linreg_acc}")
+
+
+# Save the accuracy to a file
 with open("evaluation_result.txt", "w") as file:
-    file.write(f"Accuracy: {accuracy:.2f}\n")
+    file.write(f"Accuracy: {linreg_acc}\n")
