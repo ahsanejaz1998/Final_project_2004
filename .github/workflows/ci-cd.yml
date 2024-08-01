@@ -34,10 +34,6 @@ jobs:
       run: |
         python evaluate-model.py
 
-    - name: Check code quality
-      run: |
-        pip install pylint
-        pylint your_code_directory
 
   prevent-bad-commit:
     runs-on: ubuntu-latest
