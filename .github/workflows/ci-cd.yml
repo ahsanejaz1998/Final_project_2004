@@ -65,3 +65,5 @@ jobs:
       run: |
         python fail_build_if_bad_model.py
       if: failure()
+
+# Trigger a new workflow run with this comment
