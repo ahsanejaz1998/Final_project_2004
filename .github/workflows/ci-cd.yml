@@ -61,4 +61,4 @@ jobs:
     - name: Fail the build on bad model
       run: |
         python fail_build_if_bad_model.py
-      if: failure() 
+      continue-on-error: false
