@@ -38,12 +38,20 @@
 + Added a display section under the filtered tweet that shows what words were censored and their word count.
 + Modified styles.css to give the web page a more twitter-like appearance
 
+### July, 27. 2024 - Ahsan
+###  tested logistic regression model to classify hate speech
+
+### July, 30. 2024 - Ahsan
+### Update ci-cd.yml
 
 ### July, 30. 2024 - Justin
 ### Hugging Face - Hate Speech Model
 + Added the transformers library and used it to implement the pre-trained unitary/toxic-bert model from Hugging Face.
 + Altered the hate_speech_detection function to use this model for classification.
 + Finalized the MVP for the project & its features
+
+### August, 1. 2024 - Ahsan
+### dded a bad model of linear regression
 
 # Data Sources/References: 
 ## * unitary/toxic-bert model from huggingface
