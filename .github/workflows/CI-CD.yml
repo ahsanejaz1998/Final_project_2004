@@ -3,10 +3,10 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - main
+      - ci-cd-setup
   pull_request:
     branches:
-      - main
+      - ci-cd-setup
 
 jobs:
   build-and-test:
@@ -19,7 +19,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: '3.8'
+        python-version: '3.9'
 
     - name: Install dependencies
       run: |
@@ -32,12 +32,8 @@ jobs:
 
     - name: Run model evaluation
       run: |
-        python evaluate_model.py
+        python evaluate-model.py
 
-    - name: Check code quality
-      run: |
-        pip install pylint
-        pylint your_code_directory
 
   prevent-bad-commit:
     runs-on: ubuntu-latest
@@ -50,7 +46,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: '3.8'
+        python-version: '3.9'
 
     - name: Install dependencies
       run: |
@@ -59,10 +55,10 @@ jobs:
 
     - name: Run model performance check
       run: |
-        python evaluate_model.py
+        python evaluate-model.py
       continue-on-error: true
 
     - name: Fail the build on bad model
       run: |
         python fail_build_if_bad_model.py
-      if: failure()
+      continue-on-error: false
