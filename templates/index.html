@@ -2,35 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hate Speech Detection</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
-    <div class="container">
-        <div class="tweet-box">
-            <h1>Post a Tweet</h1>
-            <form method="post" action="/detect">
-                <textarea name="text" id="tweet-input" placeholder="What's happening?" required>{{ original_text if original_text else '' }}</textarea>
-                <button type="submit">Tweet</button>
-            </form>
-        </div>
-        {% if filtered_text %}
-        <div class="result">
-            <h2>Filtered Text</h2>
-            <p id="filtered-text">{{ filtered_text }}</p>
-        </div>
-        {% endif %}
-        {% if censored_words %}
-        <div class="log">
-            <h2>Censored Words Log</h2>
-            <ul>
-                {% for index, (word, position) in enumerate(censored_words, start=1) %}
-                <li>{{ index }} - '{{ word }}' : Word #{{ position }}</li>
-                {% endfor %}
-            </ul>
-        </div>
-        {% endif %}
-    </div>
+    <h1>Hate Speech Detection</h1>
+    <form action="/detect" method="post">
+        <textarea name="text" rows="10" cols="50"></textarea><br>
+        <input type="submit" value="Detect Hate Speech">
+    </form>
+    {% if original_text %}
+        <h2>Original Text</h2>
+        <p>{{ original_text }}</p>
+        <h2>Filtered Text</h2>
+        <p>{{ filtered_text }}</p>
+        <h2>Censored Words</h2>
+        <ul>
+        {% for word, position in censored_words %}
+            <li>{{ word }} at position {{ position }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
 </body>
 </html>
