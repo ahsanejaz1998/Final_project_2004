@@ -24,7 +24,7 @@ from wordcloud import WordCloud
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score, classification_report, confusion_matrix, ConfusionMatrixDisplay
+from sklearn.metrics import accuracy_score, classification_report,precision_score, recall_score, f1_score, confusion_matrix, ConfusionMatrixDisplay
 
 
 # In[2]:
@@ -290,6 +290,9 @@ y_pred = grid.predict(x_test)
 
 logreg_acc = accuracy_score(y_pred, y_test)
 print("Test accuracy: {:.2f}%".format(logreg_acc*100))
+precision = precision_score(y_test, y_pred)
+recall = recall_score(y_test, y_pred)
+f1 = f1_score(y_test, y_pred)
 
 
 # In[49]:
