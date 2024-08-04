@@ -38,6 +38,14 @@ jobs:
         run: |
           python tests/test_precision_score.py
 
+      - name: Run recall score test
+        run: |
+          python tests/test_recall_score.py
+
+      - name: Run ROC-AUC score test
+        run: |
+          python tests/test_roc_auc_score.py
+
   prevent-bad-commit:
     runs-on: ubuntu-latest
     needs: build-and-test
