@@ -15,6 +15,7 @@
 * Added tests for ROC AUC score
 * Created CI/CD pipeline specific to Jashan branch
 * Integrated precision score and ROC AUC score tests into the CI/CD pipeline
+* Started working on the project report to be submitted.
 
 ## Justin Collier:
 ### * ...
