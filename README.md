@@ -18,7 +18,9 @@
 * Started working on the project report to be submitted.
 
 ## Justin Collier:
-### * ...
+* Front-End Development
+* Model Integration & Testing
+* Deployment 
 
  
 ## Changelog
@@ -68,6 +70,11 @@
 
 ### August, 5. 2024 - Jashanpreet Kaur Gill
 + Integrated precision score and ROC AUC score tests into the CI/CD pipeline - Updated the CI/CD pipeline to include the newly added precision score and ROC AUC score tests
+
+### August, 6. 2024 - Justin
++ Altered 'evaluate-model.py' to work on our HuggingFace model and save the accuracy to the evaluation result.
+- Removed unnecessary files related to the original CI/CD development
++ Moved the model call to it's own Python file so we can call it from both our app.py and our evaluate_model.py
 
 # Data Sources/References: 
 ## * unitary/toxic-bert model from huggingface
