@@ -11,7 +11,11 @@
 ### * ...
 
 ## Jashanpreet Kaur Gill
-### * ...
+* Added tests for model precision score
+* Added tests for ROC AUC score
+* Created CI/CD pipeline specific to Jashan branch
+* Integrated precision score and ROC AUC score tests into the CI/CD pipeline
+* Started working on the project report to be submitted.
 
 ## Justin Collier:
 ### * ...
@@ -52,6 +56,18 @@
 
 ### August, 1. 2024 - Ahsan
 ### dded a bad model of linear regression
+
+### August, 5. 2024 - Jashanpreet Kaur Gill
++ Added precision score test Implemented a test to check the precision score of the model
+
+### August, 5. 2024 - Jashanpreet Kaur Gill
++ Added ROC AUC score test - Implemented a test to check the ROC AUC score of the model
+
+### August, 5. 2024 - Jashanpreet Kaur Gill
++ Created CI/CD pipeline specific to Jashan branch - Developed a CI/CD pipeline specific to the Jashan branch to ensure the integration of new tests
+
+### August, 5. 2024 - Jashanpreet Kaur Gill
++ Integrated precision score and ROC AUC score tests into the CI/CD pipeline - Updated the CI/CD pipeline to include the newly added precision score and ROC AUC score tests
 
 # Data Sources/References: 
 ## * unitary/toxic-bert model from huggingface
