@@ -1,10 +1,7 @@
-import joblib
 import pandas as pd
-from sklearn.linear_model import LinearRegression
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix, ConfusionMatrixDisplay
-from sklearn.model_selection import train_test_split
-from sklearn.feature_extraction.text import TfidfVectorizer
 import matplotlib.pyplot as plt
+from hate_speech_models import hate_speech_detection  # Import the hate_speech_detection function
 
 # Load the dataset
 tweet_df = pd.read_csv('train.csv')
@@ -13,32 +10,35 @@ tweet_df = pd.read_csv('train.csv')
 X = tweet_df['tweet']
 Y = tweet_df['label']
 
-# Vectorize the text data
-vect = TfidfVectorizer()
-X_vect = vect.fit_transform(X)
+# Convert target labels to a common format ('toxic' and 'non-toxic')
+Y_binary = ['toxic' if label == 1 else 'non-toxic' for label in Y]
 
-# Split the data into training and test sets
-X_train, X_test, Y_train, Y_test = train_test_split(X_vect, Y, test_size=0.2, random_state=42)
+# Initialize lists to store predictions and true labels
+predictions = []
+true_labels = []
 
-# Initialize and train a Linear Regression model
-linreg = LinearRegression()
-linreg.fit(X_train, Y_train)
-
-# Predict using the Linear Regression model
-Y_pred = linreg.predict(X_test)
-
-# Convert continuous predictions to binary (0 or 1)
-Y_pred_binary = [1 if pred >= 0.5 else 0 for pred in Y_pred]
+# Use the hate_speech_detection function to get predictions
+for text, true_label in zip(X, Y_binary):
+    filtered_text, censored_words = hate_speech_detection(text)
+    # Assuming 'toxic' if there are censored words, 'non-toxic' otherwise
+    prediction = 'toxic' if censored_words else 'non-toxic'
+    predictions.append(prediction)
+    true_labels.append(true_label)
 
 # Evaluate the performance
-linreg_acc = accuracy_score(Y_test, Y_pred_binary)
-conf_matrix = confusion_matrix(Y_test, Y_pred_binary)
-class_report = classification_report(Y_test, Y_pred_binary)
+accuracy = accuracy_score(true_labels, predictions)
+conf_matrix = confusion_matrix(true_labels, predictions, labels=['toxic', 'non-toxic'])
+class_report = classification_report(true_labels, predictions, target_names=['toxic', 'non-toxic'])
 
+print(f"Accuracy: {accuracy}")
+print(f"Classification Report:\n{class_report}")
 
-print(f"Accuracy: {linreg_acc}")
+# Plot confusion matrix
+disp = ConfusionMatrixDisplay(confusion_matrix=conf_matrix, display_labels=['toxic', 'non-toxic'])
+disp.plot(cmap=plt.cm.Blues)
+plt.show()
 
-
-# Save the accuracy to a file
+# Save the evaluation results to a file
 with open("evaluation_result.txt", "w") as file:
-    file.write(f"Accuracy: {linreg_acc}\n")
+    file.write(f"Accuracy: {accuracy}\n")
+    file.write(f"Classification Report:\n{class_report}\n")

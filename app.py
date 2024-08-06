@@ -6,15 +6,11 @@
 # Purpose: Training four different models using the movies sentiment analysis dataset provided"
 
 from flask import Flask, render_template, request
-from transformers import pipeline # We are using transformers for our pre-trained model
 
 app = Flask(__name__)
 
-# Loading a pre-trained hate speech detection model
-hate_speech_detector = pipeline("text-classification", model="unitary/toxic-bert")
-
-# For this we are using the unitary/toxic-bert model from huggingface. Below is the page referencing/hosting this model:
-# Source: https://huggingface.co/unitary/toxic-bert
+# Importing our model function call
+from hate_speech_models import hate_speech_detector
 
 # Home Page
 @app.route('/')
