@@ -9,7 +9,9 @@
 # Work Distribution:
 
 ## Ahsan Ejaz
-### * ...
+* Created CI/CD pipelines and defined jobs in the yml file
+* added the logistic regression model
+* added a bad model to verify the working of the defined workflow and prevent the commit from happening.
 
 ## Jashanpreet Kaur Gill
 * Added tests for model precision score
