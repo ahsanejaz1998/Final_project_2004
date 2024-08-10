@@ -55,7 +55,7 @@ jobs:
 
     - name: Run model performance check
       run: |
-        python evaluate-model.py
+        python hate_speech.py
       continue-on-error: true
 
     - name: Fail the build on bad model
