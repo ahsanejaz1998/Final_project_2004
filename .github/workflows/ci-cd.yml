@@ -60,6 +60,16 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
+    - name: Download NLTK data
+      run: |
+        python -m nltk.downloader stopwords
+
+    - name: Download NLTK data
+      run: |
+        python -m nltk.downloader punkt stopwords wordnet    
+
+        
+
     - name: Run model performance check
       run: |
         python hate_speech_good_model.py
