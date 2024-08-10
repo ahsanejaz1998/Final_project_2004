@@ -1,7 +1,7 @@
 import pandas as pd
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix, ConfusionMatrixDisplay
 import matplotlib.pyplot as plt
-#from hate_speech_models import hate_speech_detection  # Import the hate_speech_detection function
+from hate_speech_models import hate_speech_detection  # Import the hate_speech_detection function
 
 # Load the dataset
 tweet_df = pd.read_csv('train.csv')
