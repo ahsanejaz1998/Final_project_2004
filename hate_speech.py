@@ -294,10 +294,9 @@ print("Test accuracy: {:.2f}%".format(logreg_acc*100))
 
 # In[49]:
 
-
-print(confusion_matrix(y_test, y_pred))
-print("\n")
-print(classification_report(y_test, y_pred))
+# Save the accuracy to a file
+with open("evaluation_result.txt", "w") as file:
+    file.write(f"Accuracy: {logreg_acc}\n")
 
 '''
 # SVM Model
