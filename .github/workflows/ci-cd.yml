@@ -32,7 +32,7 @@ jobs:
 
     - name: Run model evaluation
       run: |
-        python evaluate-model.py
+        python hate_speech.py
 
 
   prevent-bad-commit:
